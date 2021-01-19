@@ -1,0 +1,82 @@
+version: '3'
+
+networks:
+  chope:
+    driver: bridge
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: chope_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - chope
+
+  mysql:
+    image: mysql:5.7
+    container_name: chope_mysql
+    restart: unless-stopped
+    volumes:
+      - ./data/mysql/homestead:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - chope
+
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: chope_php
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - chope
+
+  composer:
+    image: composer:latest
+    container_name: chope_composer
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    networks:
+      - chope
+
+  adminer:
+    image: adminer:latest
+    container_name: chope_adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    networks:
+      - chope
+
+  redis:
+    image: redis:alpine
+    container_name: chope_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+    networks:
+      - chope
