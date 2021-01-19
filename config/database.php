@@ -57,7 +57,12 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
-        ]
+        ],
+        'testing' => [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ],
     ],
 
     /*
