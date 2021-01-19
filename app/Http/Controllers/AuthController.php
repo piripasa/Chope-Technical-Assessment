@@ -8,6 +8,7 @@ use App\Exceptions\AuthException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Repository\UserRepository;
+use App\Service\JwtToken;
 use Illuminate\Http\Response;
 
 class AuthController extends ApiController
@@ -51,10 +52,17 @@ class AuthController extends ApiController
     {
         if ($user = $this->repository->findBy('email', $request->username)) {
             if (app('hash')->check($request->password, $user->password)) {
+                $expiration = 24 * 60 * 60;
+                $token = (new JwtToken([config('jwt.algo')], config('jwt.secret'), 'chope', $expiration))->createToken($user, app('redisCache'));
                 return $this->sendResponse([
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
+                    "token_type" => "Bearer",
+                    "expires_in" => $expiration,
+                    'access_token' => $token,
+                    'user' => [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                    ]
                 ], 'Login successfully');
             }
         }

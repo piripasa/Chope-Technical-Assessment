@@ -22,8 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->configure('app');
-
-$app->instance('path.config', app()->basePath() . DIRECTORY_SEPARATOR . 'config');
+$app->configure('jwt');
 
 //$app->withFacades();
 
@@ -82,6 +81,8 @@ $app->singleton(
 
  $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\EventServiceProvider::class);
+ $app->register(Illuminate\Redis\RedisServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------

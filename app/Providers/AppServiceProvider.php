@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Service\Cache\RedisCache;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('redisCache', function ($app) {
+            return new RedisCache(app("redis.connection"));
+        });
     }
 }
