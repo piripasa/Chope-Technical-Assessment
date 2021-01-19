@@ -15,6 +15,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/health', function () use ($router) {
+$router->get('api/health', function () use ($router) {
     return "OK";
 });
+
+$router->post( 'api/register', 'AuthController@register');
+$router->post( 'api/login', 'AuthController@login');
