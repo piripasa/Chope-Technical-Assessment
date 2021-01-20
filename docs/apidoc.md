@@ -1,6 +1,6 @@
-#Chope API
+# Chope API
 
-#Table of Contents <a name="toc"></a>
+# Table of Contents <a name="toc"></a>
 
 1. [API](#api)
 	- [Register](#register)
