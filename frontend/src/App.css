@@ -1,0 +1,6 @@
+@import url("https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css");
+@import "~react-overlay-loader/styles.css";
+
+.navbar {
+  background-color: gray;
+}
