@@ -3,8 +3,6 @@
 
 namespace App\Service;
 
-
-use App\Service\Cache\CacheInterface;
 use Firebase\JWT\JWT;
 
 class JwtToken
@@ -26,20 +24,12 @@ class JwtToken
      * Create a new token.
      * Also it will save in cache
      *
-     * @param  $user
-     * @param  $cache
+     * @param $subject
      * @return string
      */
-    public function createToken($user, $cache = null)
+    public function createToken($subject)
     {
-        $token = $this->getJwtToken($user);
-
-        if ($cache instanceof CacheInterface) {
-            $cache->set(sprintf('user:%d:token', $user->id), $token, $this->expiration);
-            $cache->set($token, serialize($user), $this->expiration);
-        }
-
-        return $token;
+        return $this->getJwtToken($subject);
     }
 
     /**
@@ -52,14 +42,14 @@ class JwtToken
     }
 
     /**
-     * @param $user
+     * @param $subject
      * @return string
      */
-    private function getJwtToken($user)
+    private function getJwtToken($subject)
     {
         $payload = [
             'iss' => $this->issuer, // Issuer of the token
-            'sub' => $user['id'], // Subject of the token
+            'sub' => $subject, // Subject of the token
             'iat' => time(), // Time when JWT was issued.
             'exp' => time() + $this->expiration, // Expiration time
         ];
