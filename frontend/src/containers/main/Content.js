@@ -13,6 +13,7 @@ class Content extends Component {
             <Switch>
                 <Route exact path="/login" name="List" component={Login} />
                 <Route exact path="/register" name="List" component={Register} />
+                <AuthRoute exact path='/' component={Dashboard}/>
                 <AuthRoute exact path='/dashboard' component={Dashboard}/>
                 <AuthRoute exact path='/activity' component={Activity}/>
                 <Route path="*" component={Page404} />
