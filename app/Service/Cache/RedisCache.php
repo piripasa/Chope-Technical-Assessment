@@ -72,4 +72,16 @@ class RedisCache implements CacheInterface
             return $this->client->del($keys);
         }
     }
+
+    public function addToList(string $key, $value, int $score): CacheInterface
+    {
+        $this->client->zadd($key, $score, $value);
+
+        return $this;
+    }
+
+    public function getList(string $key, int $from = 0, int $to = -1)
+    {
+        return $this->client->zrange($key, $from, $to);
+    }
 }

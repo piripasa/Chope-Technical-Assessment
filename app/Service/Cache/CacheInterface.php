@@ -24,5 +24,9 @@ interface CacheInterface
      * @return mixed
      */
     public function delete($key);
+
+    public function addToList(string $key, $value, int $score);
+
+    public function getList(string $key, int $from = 0, int $to = -1);
 }
 
