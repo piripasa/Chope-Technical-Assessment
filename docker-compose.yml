@@ -80,3 +80,15 @@ services:
     restart: always
     networks:
       - chope
+
+  npm:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/npm/Dockerfile
+    container_name: chope_npm
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
