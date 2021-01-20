@@ -98,7 +98,7 @@ return [
             'database' => env('REDIS_DATABASE', 0),
         ],
         'options'=> [
-            'prefix' => 'chope:'
+            'prefix' => env('REDIS_KEY_PREFIX', 'chope:')
         ],
     ],
 
