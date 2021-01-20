@@ -23,14 +23,14 @@ class JwtTokenTest extends TestCase
     public function testTokenParseSuccess()
     {
         $mockObj = $this->makeMock();
-        $result = $mockObj->parseToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaG9wZSIsInN1YiI6MTAsImlhdCI6MTYxMTA4Mjk3NiwiZXhwIjoxNjExMTY5Mzc2fQ.rDGkW3YD2ugsqFtV46CfFY57J4PmM_xrjmtec071TXo');
+        $result = $mockObj->parseToken($mockObj->createToken(10));
         $this->assertEquals(10, $result->sub);
     }
 
     public function testTokenParseFail()
     {
         $mockObj = $this->makeMock();
-        $result = $mockObj->parseToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaG9wZSIsInN1YiI6MTAsImlhdCI6MTYxMTA4Mjk3NiwiZXhwIjoxNjExMTY5Mzc2fQ.rDGkW3YD2ugsqFtV46CfFY57J4PmM_xrjmtec071TXo');
+        $result = $mockObj->parseToken($mockObj->createToken(10));
         $this->assertNotEquals(1, $result->sub);
     }
 
