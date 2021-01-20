@@ -111,7 +111,9 @@ class Handler extends ExceptionHandler
                 $message = $debugMode ? $exception->getMessage() : $message;
                 break;
         }
-
+        if (!is_array($message)) {
+            $message = ['error' => [$message]];
+        }
         return app(ApiController::class)->sendError($exceptionClass, (array)$message, $status);
     }
 }
