@@ -8,8 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Don't forget to set this in your .env file, as it will be used to sign
-    | your tokens. A helper command is provided for this:
-    | `php artisan jwt:generate`
+    | your tokens.
     |
     */
 
@@ -45,5 +44,16 @@ return [
     */
 
     'algo' => env('JWT_ALGO', 'HS256'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | JWT hashing issuer
+    |--------------------------------------------------------------------------
+    |
+    | Token issuer
+    |
+    */
+
+    'issuer' => env('JWT_ISS', 'chope'),
 
 ];
