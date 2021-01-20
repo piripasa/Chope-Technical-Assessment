@@ -29,4 +29,4 @@ echo "Database migrated"
 echo "PHP Unit testing..."
 docker-compose run --rm php vendor/bin/phpunit
 
-echo "Go to $APP_URL"
+echo "Go to $APP_URL for API & $FRONTEND_URL for Frontend"
