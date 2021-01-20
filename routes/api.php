@@ -15,9 +15,15 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('api/health', function () use ($router) {
-    return "OK";
-});
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('health', function () use ($router) {
+        return "OK";
+    });
+    $router->post( 'register', 'AuthController@register');
+    $router->post( 'login', 'AuthController@login');
 
-$router->post( 'api/register', 'AuthController@register');
-$router->post( 'api/login', 'AuthController@login');
+    $router->group(['middleware' => 'auth:api'], function () use ($router) {
+        $router->post('logout', 'AuthController@logout');
+        $router->get('activity', 'ActivityController@index');
+    });
+});
