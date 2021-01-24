@@ -1,9 +1,9 @@
-/vendor
+/backend/vendor
 /.idea
 Homestead.json
 Homestead.yaml
-/.env
-.phpunit.result.cache
+/backend/.env
+/backend/.phpunit.result.cache
 /data
-frontend/.eslintcache
-frontend/node_modules
+/frontend/.eslintcache
+/frontend/node_modules

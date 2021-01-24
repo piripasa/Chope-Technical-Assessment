@@ -8,8 +8,8 @@ docker-compose up -d
 
 docker-compose exec php cp /var/www/html/.env.example /var/www/html/.env
 
- [ -f ".env" ] || $(echo Please make an .env file --env=docker; exit 1)
-export $(cat .env | grep -v ^# | xargs);
+ [ -f "./backend/.env" ] || $(echo Please make an .env file --env=docker; exit 1)
+export $(cat ./backend/.env | grep -v ^# | xargs);
 
 until docker-compose exec mysql mysql -h mysql -u $DB_USERNAME -p$DB_PASSWORD -D $DB_DATABASE --silent -e "show databases;"
 do
